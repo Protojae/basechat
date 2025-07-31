@@ -8,7 +8,7 @@ const app = express()
 const server = http.createServer(app)
 const io = socketIo(server, {
   cors: {
-    origin: process.env.NODE_ENV === 'production' ? "https://your-vercel-url.vercel.app" : "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://basechat.vercel.app", /\.vercel\.app$/],
     methods: ["GET", "POST"]
   }
 })

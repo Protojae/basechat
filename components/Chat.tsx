@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react'
 import { useAccount } from 'wagmi'
-import { Identity, Avatar, Name } from '@coinbase/onchainkit/identity'
+// import { Identity, Avatar, Name } from '@coinbase/onchainkit/identity'
 import { io, Socket } from 'socket.io-client'
 
 interface Message {
@@ -21,9 +21,8 @@ export function Chat() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const newSocket = io(process.env.NODE_ENV === 'production' ? window.location.origin : 'http://localhost:3001', {
-      auth: { address },
-      path: '/socket.io/'
+    const newSocket = io(process.env.NODE_ENV === 'production' ? 'https://basechat-backend.up.railway.app' : 'http://localhost:3001', {
+      auth: { address }
     })
 
     newSocket.on('connect', () => {
@@ -113,10 +112,9 @@ export function Chat() {
             }`}>
               {message.address !== address && (
                 <div className="flex items-center space-x-2 mb-1">
-                  <Identity address={message.address as `0x${string}`}>
-                    <Avatar className="w-4 h-4" />
-                    <Name className="text-xs text-gray-300" />
-                  </Identity>
+                  <span className="text-xs text-gray-300">
+                    {message.address.slice(0, 6)}...{message.address.slice(-4)}
+                  </span>
                 </div>
               )}
               <p className="text-sm">{message.content}</p>
