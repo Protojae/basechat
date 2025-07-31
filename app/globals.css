@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #0a0a0a;
+  color: white;
+}
+
+.chat-bubble {
+  @apply bg-gray-800 rounded-lg p-3 mb-2 max-w-xs break-words;
+}
+
+.chat-bubble.own {
+  @apply bg-base-blue ml-auto;
+}
